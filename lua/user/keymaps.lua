@@ -45,18 +45,34 @@ autocmd('User', {
     local lsp = vim.lsp.buf
     local opts = {buffer = true}
 
+    -- Display information about symbol under the cursor
     bind('n', 'K', lsp.hover, opts)
+
+    -- Jump to definition
     bind('n', 'gd', lsp.definition, opts)
+
+    -- Jump to declaration
     bind('n', 'gD', lsp.declaration, opts)
+
+    -- List implementations
     bind('n', 'gi', lsp.implementation, opts)
+
+    -- Jump to type definition
     bind('n', 'go', lsp.type_definition, opts)
+
+    -- List references
     bind('n', 'gr', lsp.references, opts)
+
+    -- Display function signature information
     bind('n', 'gs', lsp.signature_help, opts)
+    bind('i', '<M-i>', lsp.signature_help, opts)
+
+    -- Rename symbol
     bind('n', '<F2>', lsp.rename, opts)
+
+    -- List code actions available at the current cursor position
     bind('n', '<F4>', lsp.code_action, opts)
     bind('x', '<F4>', lsp.range_code_action, opts)
-
-    bind('i', '<M-i>', lsp.signature_help, opts)
   end
 })
 

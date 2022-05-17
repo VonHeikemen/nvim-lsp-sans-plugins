@@ -20,7 +20,7 @@ M.on_attach = function(client, bufnr)
   if vim.b.lsp_attached then return  end
   vim.b.lsp_attached = true
 
-  -- keybindings are in lua/conf/keymaps.lua
+  -- keybindings are in lua/user/keymaps.lua
   doautocmd('User', {pattern = 'LSPKeybindings', group = 'user_cmds'})
 end
 
