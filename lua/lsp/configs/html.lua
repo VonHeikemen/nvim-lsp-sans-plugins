@@ -5,10 +5,8 @@ local filetypes = {html = true}
 local server = shared.make_config({
   cmd = {'vscode-html-language-server', '--stdio'},
   name = 'html',
+  filetypes = filetypes,
 })
 
-return {
-  filetypes = filetypes,
-  params = server
-}
+return server
 

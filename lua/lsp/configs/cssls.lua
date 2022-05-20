@@ -9,10 +9,8 @@ local filetypes = {
 local server = shared.make_config({
   cmd = {'vscode-css-language-server', '--stdio'},
   name = 'cssls',
+  filetypes = filetypes,
 })
 
-return {
-  filetypes = filetypes,
-  params = server
-}
+return server
 
