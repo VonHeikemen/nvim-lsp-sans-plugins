@@ -52,7 +52,7 @@ After the session state is restored neovim will source `Sessionx.vim` and this w
 
 * [lsp.configs.shared](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/configs/shared.lua): Used to build the configuration for a language servers. Here you can find initialization hooks, clean up hooks, capabilities. All the boilerplate necessary to reuse a language server instance in a project.
 
-* [lsp](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/init.lua): `init.lua` in the lsp folder has all user customizations you would expect to find in a "regular config" using `nvim-lspconfig`.
+* [lsp](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/init.lua): `init.lua` in the lsp folder contains some custimizations to diagnostics.
 
 * [user.sessions](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/init.lua): As a bonus I've added some helper to make it easier to manage sessions.
 
