@@ -44,17 +44,17 @@ Save the file and exit neovim. Now start neovim with this command.
 nvim -S ./nvim/Session.vim
 ```
 
-After the session state is restored neovim will source `Sessionx.vim` and this will call our language server. If you have any errors the diagnostic signs will show in the gutter. Completion suggestion can be triggered in insert mode using `<C-x><C-o>`. Check out [user.keymaps](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/user/keymaps.lua) to know what kind of actions you can do once the language server is attached to a buffer.
+After the session state is restored neovim will source `Sessionx.vim` and this will call our language server. If you have any errors the diagnostic signs will show in the gutter. Completion suggestion can be triggered in insert mode using `<C-x><C-o>`. Check out [user.keymaps](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/user/keymaps.lua) to know what kind of actions you can do once the language server is attached to a buffer.
 
 ## Files you might find interesting
 
-* [lsp.client](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/client.lua): Here you can find the "core" functions to start the client and attach it to a buffer.
+* [lsp.client](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/client.lua): Here you can find the "core" functions to start the client and attach it to a buffer.
 
-* [lsp.configs.shared](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/configs/shared.lua): Used to build the configuration for a language servers. Here you can find initialization hooks, clean up hooks, capabilities. All the boilerplate necessary to reuse a language server instance in a project.
+* [lsp.configs.shared](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/configs/shared.lua): Used to build the configuration for a language servers. Here you can find initialization hooks, clean up hooks, capabilities. All the boilerplate necessary to reuse a language server instance in a project.
 
-* [lsp](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/init.lua): `init.lua` in the lsp folder contains some custimizations to diagnostics.
+* [lsp](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/init.lua): `init.lua` in the lsp folder contains some custimizations to diagnostics.
 
-* [user.sessions](https://github.com/VonHeikemen/nvim-sans-plugins/tree/main/lua/lsp/init.lua): As a bonus I've added some helper to make it easier to manage sessions.
+* [user.sessions](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/user/sessions.lua): As a bonus I've added some helper to make it easier to manage sessions.
 
 ## Support
 
