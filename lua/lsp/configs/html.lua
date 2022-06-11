@@ -1,6 +1,6 @@
 local shared = require('lsp.configs.shared')
 
-local filetypes = {html = true}
+local filetypes = {'html'}
 
 local server = shared.make_config({
   cmd = {'vscode-html-language-server', '--stdio'},

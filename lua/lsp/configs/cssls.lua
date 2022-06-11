@@ -1,9 +1,9 @@
 local shared = require('lsp.configs.shared')
 
 local filetypes = {
-  css = true,
-  scss = true,
-  less = true
+  'css',
+  'scss',
+  'less'
 }
 
 local server = shared.make_config({

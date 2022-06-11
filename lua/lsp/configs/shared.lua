@@ -38,18 +38,22 @@ M.on_init = function(client, results)
   end
 
   local group = augroup(fmt(server_group, client.id), {clear = true})
+  local filetypes = client.config.filetypes or {'*'}
+
   local attach = function()
-    require('lsp.client').buf_attach(client.config.filetypes, client.id)
+    require('lsp.client').buf_attach(client.id)
   end
 
-  autocmd('BufEnter', {
-    pattern = '*',
+  autocmd('FileType', {
+    pattern = filetypes,
     group = group,
     desc = fmt('Attach LSP: %s', client.name),
     callback = attach
   })
 
-  if vim.v.vim_did_enter == 1 then
+  if vim.v.vim_did_enter == 0 then return end
+
+  if filetypes[1] == '*' or vim.tbl_contains(filetypes, vim.bo.filetype) then
     attach()
   end
 end

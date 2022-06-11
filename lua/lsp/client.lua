@@ -20,10 +20,7 @@ M.config = function(name, opts)
   return server_opts
 end
 
-M.buf_attach = function(filetypes, id)
-  local supported = filetypes[vim.bo.filetype]
-  if not supported then return end
-
+M.buf_attach = function(id)
   local bufnr = vim.api.nvim_get_current_buf()
   vim.lsp.buf_attach_client(bufnr, id)
 end
