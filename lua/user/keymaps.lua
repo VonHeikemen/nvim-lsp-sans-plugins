@@ -50,7 +50,7 @@ bind('n', '[d', vim.diagnostic.goto_prev)
 bind('n', ']d', vim.diagnostic.goto_next)
 
 autocmd('User', {
-  pattern = 'LSPKeybindings',
+  pattern = 'LspAttached',
   group = 'user_cmds',
   desc = 'LSP actions',
   callback = function()
