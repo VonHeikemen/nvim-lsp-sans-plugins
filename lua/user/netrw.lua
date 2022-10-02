@@ -8,6 +8,9 @@ else
   vim.g.netrw_winsize = 30
 end
 
+-- Sync current directory with browsing directory
+vim.g.netrw_keepdir = 0
+
 -- Hide banner
 vim.g.netrw_banner = 0
 
@@ -17,15 +20,18 @@ vim.g.netrw_list_hide = [[\(^\|\s\s\)\zs\.\S\+]]
 -- A better copy command
 vim.g.netrw_localcopydircmd = 'cp -r'
 
+local bind = vim.keymap.set
+bind('n', '<leader>dd', ':Lexplore %:p:h<CR>')
+bind('n', '<leader>da', ':Lexplore<CR>')
+
 -- Better keymaps for Netrw
 local netrw_mapping = function()
-  local bind = vim.keymap.set
   local opts = {buffer = true, remap = true}
 
   -- Close Netrw window
   bind('n', '<leader>dd', ':Lexplore<CR>', opts)
   bind('n', '<leader>da', ':Lexplore<CR>', opts)
-  bind('n', 'q', ':Lexplore<CR>', opts)
+  bind('n', 'q', ':Lexplore<CR>', {buffer = true, nowait = true})
 
   -- Go to file and close Netrw window
   bind('n', 'L', '<CR>:Lexplore<CR>', opts)
