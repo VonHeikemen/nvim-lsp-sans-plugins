@@ -14,7 +14,7 @@ In order to simplify the code automatic "root dir" detection is not included. In
 
 ## Project setup
 
-For this configuration to work we need to call each server explicitly. It means we would need to have a configuration file per project. How can we do this without plugins? I propose we use the builtin session mechanism. A session can have configuration file.
+For this configuration to work we need to call each server explicitly. It means we would need to have a configuration file per project. How can we do this without plugins? I propose we use the builtin session mechanism. If you didn't know, a session can have configuration file, let's just use that.
 
 ### Test run
 
@@ -35,7 +35,7 @@ Now create a config file for this session.
 Inside `Sessionx.vim` we can call our language servers. For the moment we are trying out `lua-language-server`. Add this.
 
 ```lua
-lua require('lsp').start('sumneko_lua')
+LspStart sumneko_lua
 ```
 
 Save the file and exit neovim. Now start neovim with this command.
@@ -48,11 +48,9 @@ After the session state is restored neovim will source `Sessionx.vim` and this w
 
 ## Files you might find interesting
 
-* [lsp.client](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/client.lua): Here you can find the "core" functions to start the client and attach it to a buffer.
+* [lsp.config](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/config.lua): Is used to build the configuration for a language server. Here you can find initialization hooks, clean up hooks, capabilities. All the boilerplate necessary to reuse a language server instance in a project.
 
-* [lsp.configs.shared](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/configs/shared.lua): Used to build the configuration for a language servers. Here you can find initialization hooks, clean up hooks, capabilities. All the boilerplate necessary to reuse a language server instance in a project.
-
-* [lsp](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/init.lua): `init.lua` in the lsp folder contains some custimizations to diagnostics.
+* [lsp](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/lsp/init.lua): `init.lua` in the lsp folder, contains some custimizations to diagnostics and the functions to start a language server in proper way.
 
 * [user.sessions](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/user/sessions.lua): As a bonus I've added some helper to make it easier to manage sessions.
 

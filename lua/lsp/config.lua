@@ -7,7 +7,7 @@ local fmt = string.format
 
 local server_group = 'LSP_server_%s'
 
-M.make_config = function(config)
+function M.make(config)
   local defaults = {
     root_dir = vim.fn.getcwd(),
     capabilities = M.capabilities,
@@ -26,7 +26,7 @@ M.make_config = function(config)
   )
 end
 
-M.on_init = function(client, results)
+function M.on_init(client, results)
   if results.offsetEncoding then
     client.offset_encoding = results.offsetEncoding
   end
@@ -41,7 +41,7 @@ M.on_init = function(client, results)
   local filetypes = client.config.filetypes or {'*'}
 
   local attach = function()
-    require('lsp.client').buf_attach(client.id)
+    vim.lsp.buf_attach_client(0, client.id)
   end
 
   autocmd('FileType', {
@@ -66,17 +66,41 @@ M.on_exit = vim.schedule_wrap(function(code, signal, client_id)
   end
 end)
 
-M.on_attach = function(client, bufnr)
+function M.on_attach(client, bufnr)
   if vim.b.lsp_attached then return  end
   vim.b.lsp_attached = true
+
+  local bufcmd = vim.api.nvim_buf_create_user_command
   vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
   vim.bo.tagfunc = 'v:lua.vim.lsp.tagfunc'
 
+  bufcmd(bufnr, 'LspFormat', M.format_cmd, {
+    bang = true,
+    range = true,
+    desc = 'LSP based formatting'
+  })
+
   -- keybindings are in lua/user/keymaps.lua
-  doautocmd('User', {pattern = 'LSPKeybindings', group = 'user_cmds'})
+  doautocmd('User', {pattern = 'LspAttached'})
 end
 
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
+
+function M.format_cmd(input)
+  local has_range = input.line2 == input.count
+  local execute = vim.lsp.buf.formatting
+
+  if input.bang then
+    if has_range then return end
+    execute = vim.lsp.buf.formatting_sync
+  end
+
+  if has_range then
+    execute = vim.lsp.buf.range_formatting
+  end
+
+  execute()
+end
 
 return M
 

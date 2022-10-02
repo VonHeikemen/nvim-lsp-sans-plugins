@@ -3,8 +3,6 @@ local M = {}
 local augroup = vim.api.nvim_create_augroup
 local autocmd = vim.api.nvim_create_autocmd
 
-local lsp = require('lsp.client')
-
 M.diagnostics = function()
   local sign = function(opts)
     vim.fn.sign_define(opts.name, {
@@ -65,12 +63,26 @@ M.handlers = function()
 end
 
 M.project_setup = function(list)
-  for _, server in pairs(list) do
-    lsp.start(server)
-  end
+  for _, server in pairs(list) do M.start(server) end
 end
 
-M.start = lsp.start
+M.start = function(name, opts)
+  vim.lsp.start_client(M.config(name, opts))
+end
+
+M.config = function(name, opts)
+  local server_opts = require(fmt('lsp.servers.%s', name))
+
+  if opts then
+    server_opts = vim.tbl_deep_extend(
+      'force',
+      server_opts,
+      opts
+    )
+  end
+
+  return server_opts
+end
 
 M.diagnostics()
 M.handlers()

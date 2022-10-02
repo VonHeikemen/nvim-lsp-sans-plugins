@@ -19,3 +19,6 @@ load('user.netrw')
 -- Session helper
 load('user.sessions')
 
+-- Set lsp commands
+require('lsp.commands')
+
