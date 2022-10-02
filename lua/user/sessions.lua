@@ -36,7 +36,7 @@ command('SessionConfig', function()
   if session == '' then return end
 
   local path = vim.fn.fnamemodify(session, ':r')
-  vim.cmd(fmt('edit %sx.vim', vim.fn.fnameescape(path)))
+  vim.cmd(fmt('edit %sx.vim', escape(path)))
 end, {})
 
 autocmd('VimLeavePre', {
