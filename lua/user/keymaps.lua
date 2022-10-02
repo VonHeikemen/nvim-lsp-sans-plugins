@@ -10,6 +10,18 @@ bind('', '<Leader>h', '^')
 -- Go to last character in line
 bind('', '<Leader>l', 'g_')
 
+-- Whatever you delete, make it go away
+bind({'n', 'x'}, 'x', '"_x')
+
+-- Copy to clipboard
+bind({'n', 'x'}, 'cp', '"+y')
+
+-- Paste from clipboard
+bind({'n', 'x'}, 'cv', '"+p')
+
+-- Select all text
+bind('n', '<leader>a', '<cmd>keepjumps normal! ggVG<cr>')
+
 -- Write file
 bind('n', '<Leader>w', ':write<cr>')
 
