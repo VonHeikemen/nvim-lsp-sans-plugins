@@ -7,6 +7,12 @@ set.backup = false
 -- Enable syntax highlight
 vim.cmd('syntax enable')
 
+-- Enable relative numbers
+set.relativenumber = true
+
+-- Don't wrap lines
+set.wrap = false
+
 -- Always display signcolumn (for diagnostic related stuff)
 set.signcolumn = 'yes'
 
@@ -21,7 +27,4 @@ set.expandtab = true
 
 -- Apply theme
 vim.cmd('colorscheme darkling')
-
--- Status line
-set.statusline = '%=%r%m %l:%c %p%% %y '
 
