@@ -2,6 +2,10 @@ Ever wondered how you can use neovim's builtin LSP client without plugins? This 
 
 > This is not a neovim distribution.
 
+## Requirements
+
+* Neovim v0.7
+
 ## How does it work?
 
 At the heart of everything there are two functions:
