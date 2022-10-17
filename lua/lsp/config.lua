@@ -27,16 +27,6 @@ function M.make(config)
 end
 
 function M.on_init(client, results)
-  if results.offsetEncoding then
-    client.offset_encoding = results.offsetEncoding
-  end
-
-  if client.config.settings then
-    client.notify('workspace/didChangeConfiguration', {
-      settings = client.config.settings
-    })
-  end
-
   local group = augroup(fmt(server_group, client.id), {clear = true})
   local filetypes = client.config.filetypes or {'*'}
 
@@ -51,7 +41,9 @@ function M.on_init(client, results)
     callback = attach
   })
 
-  if vim.v.vim_did_enter == 0 then return end
+  if vim.v.vim_did_enter == 0 then
+    return
+  end
 
   if filetypes[1] == '*' or vim.tbl_contains(filetypes, vim.bo.filetype) then
     attach()
@@ -67,12 +59,12 @@ M.on_exit = vim.schedule_wrap(function(code, signal, client_id)
 end)
 
 function M.on_attach(client, bufnr)
-  if vim.b.lsp_attached then return  end
-  vim.b.lsp_attached = true
+  if vim.b.lsp_attached then
+    return
+  end
 
+  vim.b.lsp_attached = true
   local bufcmd = vim.api.nvim_buf_create_user_command
-  vim.bo.omnifunc = 'v:lua.vim.lsp.omnifunc'
-  vim.bo.tagfunc = 'v:lua.vim.lsp.tagfunc'
 
   bufcmd(bufnr, 'LspFormat', M.format_cmd, {
     bang = true,
@@ -87,19 +79,7 @@ end
 M.capabilities = vim.lsp.protocol.make_client_capabilities()
 
 function M.format_cmd(input)
-  local has_range = input.line2 == input.count
-  local execute = vim.lsp.buf.formatting
-
-  if input.bang then
-    if has_range then return end
-    execute = vim.lsp.buf.formatting_sync
-  end
-
-  if has_range then
-    execute = vim.lsp.buf.range_formatting
-  end
-
-  execute()
+  vim.lsp.buf.format({async = input.bang})
 end
 
 return M
