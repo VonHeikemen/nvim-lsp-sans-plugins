@@ -63,7 +63,9 @@ M.handlers = function()
 end
 
 M.project_setup = function(list)
-  for _, server in pairs(list) do M.start(server) end
+  for _, server in pairs(list) do
+    M.start(server)
+  end
 end
 
 M.start = function(name, opts)
