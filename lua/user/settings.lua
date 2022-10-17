@@ -1,29 +1,24 @@
-local set = vim.opt
-
 -- Don't use temp files
-set.swapfile = false
-set.backup = false
-
--- Enable syntax highlight
-vim.cmd('syntax enable')
+vim.opt.swapfile = false
+vim.opt.backup = false
 
 -- Enable relative numbers
-set.relativenumber = true
+vim.opt.relativenumber = true
 
 -- Don't wrap lines
-set.wrap = false
+vim.opt.wrap = false
 
 -- Always display signcolumn (for diagnostic related stuff)
-set.signcolumn = 'yes'
+vim.opt.signcolumn = 'yes'
 
 -- If available, use the pretty colors
-set.termguicolors = true
+vim.opt.termguicolors = true
 
 -- Tab set to two spaces
-set.tabstop = 2
-set.shiftwidth = 2
-set.softtabstop = 2
-set.expandtab = true
+vim.opt.tabstop = 2
+vim.opt.shiftwidth = 2
+vim.opt.softtabstop = 2
+vim.opt.expandtab = true
 
 -- Apply theme
 vim.cmd('colorscheme darkling')
