@@ -1,13 +1,22 @@
 local M = {}
 local state = {}
 
-local function default_hl(name, style)
+local function default_hl(name, style, opts)
+  opts = opts or {}
   local ok, hl = pcall(vim.api.nvim_get_hl_by_name, name, 1)
   if ok and (hl.background or hl.foreground) then
     return
   end
 
-  vim.api.nvim_set_hl(0, name, style)
+  if opts.link then
+    vim.api.nvim_set_hl(0, name, {link = style})
+    return
+  end
+
+  local normal = vim.api.nvim_get_hl_by_name('Normal', 1)
+  local fallback = vim.api.nvim_get_hl_by_name(style, 1)
+
+  vim.api.nvim_set_hl(0, name, {fg = normal.background, bg = fallback.foreground})
 end
 
 local mode_higroups = {
@@ -20,15 +29,15 @@ local mode_higroups = {
 }
 
 local function apply_hl()
-  default_hl('UserStatusBlock', {bg = '#464D5D', fg = '#D8DEE9'})
-  default_hl('UserStatusMode_xx', {bg = '#FC8680', fg = '#353535', bold = true})
+  default_hl('UserStatusBlock', 'StatusLine', {link = true})
+  default_hl('UserStatusMode_DEFAULT', 'Comment')
 
-  default_hl(mode_higroups['NORMAL'],  {bg = '#6699CC', fg = '#353535'})
-  default_hl(mode_higroups['VISUAL'],  {bg = '#DDA0DD', fg = '#353535'})
-  default_hl(mode_higroups['V-BLOCK'], {link = mode_higroups['VISUAL']})
-  default_hl(mode_higroups['V-LINE'],  {link = mode_higroups['VISUAL']})
-  default_hl(mode_higroups['INSERT'],  {bg = '#99C794', fg = '#353535'})
-  default_hl(mode_higroups['COMMAND'], {bg = '#5FB4B4', fg = '#101010'})
+  default_hl(mode_higroups['NORMAL'],  'Directory')
+  default_hl(mode_higroups['VISUAL'],  'Number')
+  default_hl(mode_higroups['V-BLOCK'], 'Number')
+  default_hl(mode_higroups['V-LINE'],  'Number')
+  default_hl(mode_higroups['INSERT'],  'String')
+  default_hl(mode_higroups['COMMAND'], 'Special')
 end
 
 -- mode_map copied from:
@@ -129,7 +138,7 @@ function state.mode()
     return fmt(hi_pattern, higroup, text)
   end
 
-  state.mode_group = 'UserStatusMode_xx'
+  state.mode_group = 'UserStatusMode_DEFAULT'
   text = fmt(' %s ', mode_name)
   return fmt(hi_pattern, state.mode_group, text)
 end
@@ -199,9 +208,9 @@ function M.setup()
     command = "echo ''"
   })
   autocmd('User', {
+    pattern = 'LspAttached',
     group = augroup,
     once = true,
-    pattern = 'LspAttached',
     desc = 'Show diagnostic sign',
     callback = function()
       state.show_diagnostic = true
@@ -252,7 +261,7 @@ end
 
 function M.higroups()
   local res = vim.deepcopy(mode_higroups)
-  res['DEFAULT'] = 'UserStatusMode_xx'
+  res['DEFAULT'] = 'UserStatusMode_DEFAULT'
   res['STATUS-BLOCK'] = 'UserStatusBlock'
   return res
 end
