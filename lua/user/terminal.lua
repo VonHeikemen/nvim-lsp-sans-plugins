@@ -32,11 +32,14 @@ function M.setup(opts)
       vim.opt_local.swapfile = false
       vim.opt_local.buflisted = false
       vim.opt_local.modified = false
+      vim.opt_local.relativenumber = false
+      vim.opt_local.number = false
       exec('startinsert')
     end
   })
   autocmd('TermClose', {
     group = augroup,
+    nested = true,
     callback = function()
       if vim.v.event.status == 0
         and vim.api.nvim_buf_is_valid(s.current.buffer)
