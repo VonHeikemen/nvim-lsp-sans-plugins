@@ -49,6 +49,16 @@ bind('n', '[d', vim.diagnostic.goto_prev)
 -- Go to next diagnostic
 bind('n', ']d', vim.diagnostic.goto_next)
 
+-- Use terminal
+bind({'', 't', 'i'}, '<M-Space>', function()
+  local direction = 'bottom'
+  if vim.o.lines < 19 then
+    direction = 'right'
+  end
+
+  require('user.terminal').toggle({direction = direction})
+end)
+
 autocmd('User', {
   pattern = 'LspAttached',
   group = 'user_cmds',
