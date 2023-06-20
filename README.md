@@ -47,7 +47,7 @@ LspStart sumneko_lua
 Save the file and exit neovim. Now start neovim with this command.
 
 ```sh
-nvim -S ./nvim/Session.vim
+nvim -S ./.nvim/Session.vim
 ```
 
 After the session state is restored neovim will source `Sessionx.vim` and this will call our language server. If you have any errors the diagnostic signs will show in the gutter. Completion suggestion can be triggered in insert mode using `<C-x><C-o>`. Check out [user.keymaps](https://github.com/VonHeikemen/nvim-lsp-sans-plugins/blob/main/lua/user/keymaps.lua) to know what kind of actions you can do once the language server is attached to a buffer.
